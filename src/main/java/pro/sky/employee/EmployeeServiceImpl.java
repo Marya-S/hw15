@@ -9,38 +9,38 @@ import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private Map<String, String> listEmployee = new HashMap<>();
+    private Map<String, Employee> listEmployee = new HashMap<>();
 
-    public String addEmployee(String name, String surname) {
-        String fio = name + " " + surname;
-        if (listEmployee.containsKey(fio)) {
+    public Employee addEmployee(String name, String surname) {
+        Employee employee = new Employee(name,surname);
+        if (listEmployee.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAdded("Сотрудник уже добавлен в список");
         } else {
-            listEmployee.put(fio, null);
+            listEmployee.put(employee.getFullName(), employee);
         }
-        return fio;
+        return listEmployee.get(employee.getFullName());
     }
 
-    public String deleteEmployee(String name, String surname) {
-        String fio = name + " " + surname;
-        if (listEmployee.containsKey(fio)) {
-            listEmployee.remove(fio);
+    public Employee deleteEmployee(String name, String surname) {
+        Employee employee = new Employee(name,surname);
+        if (listEmployee.containsKey(employee.getFullName())) {
+            listEmployee.remove(employee.getFullName());
         } else {
             throw new EmployeeNotFoundException("Сотрудник не найден");
         }
-        return fio;
+        return listEmployee.get(employee.getFullName());
     }
 
-    public String findEmployee(String name, String surname) {
-        String fio = name + " " + surname;
-        if (listEmployee.containsKey(fio)) {
-            return fio;
+    public Employee findEmployee(String name, String surname) {
+        Employee employee = new Employee(name,surname);
+        if (listEmployee.containsKey(employee.getFullName())) {
+            return listEmployee.get(employee.getFullName());
         } else {
             throw new EmployeeNotFoundException("Сотрудник не найден");
         }
     }
 
-    public Map<String, String> printAllList() {
+    public Map<String, Employee> printAllList() {
         return listEmployee;
     }
 }

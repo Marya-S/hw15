@@ -25,6 +25,8 @@ public class Employee {
         this.surname = surname;
     }
 
+    public String getFullName(){return this.surname +" " + this.name;}
+
     @Override
     public String toString() {
         return "Employee{" +
