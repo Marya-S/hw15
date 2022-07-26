@@ -1,9 +1,8 @@
 package pro.sky.employee;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employee")
@@ -15,7 +14,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public Employee add(@RequestParam(value = "firstName", required = false) String name, @RequestParam(value = "lastName", required = false) String surname) {
+    public String add(@RequestParam(value = "firstName", required = false) String name, @RequestParam(value = "lastName", required = false) String surname) {
         if (!(name == null) && (!(surname == null))) {
             return employeeService.addEmployee(name, surname);
         } else {
@@ -24,8 +23,8 @@ public class EmployeeController {
         return null;
     }
 
-    @GetMapping(path = "/remove")
-    public Employee remove(@RequestParam(value = "firstName", required = false) String name, @RequestParam(value = "lastName", required = false) String surname) {
+   @GetMapping(path = "/remove")
+    public String remove(@RequestParam(value = "firstName", required = false) String name, @RequestParam(value = "lastName", required = false) String surname) {
         if (!(name == null) && (!(surname == null))) {
             return employeeService.deleteEmployee(name, surname);
         } else {
@@ -35,7 +34,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/find")
-    public Employee find(@RequestParam(value = "firstName", required = false) String name, @RequestParam(value = "lastName", required = false) String surname) {
+    public String find(@RequestParam(value = "firstName", required = false) String name, @RequestParam(value = "lastName", required = false) String surname) {
         if (!(name == null) && (!(surname == null))) {
             return employeeService.findEmployee(name, surname);
         } else {
@@ -45,7 +44,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/getAll")
-    public List<Employee> returnAll() {
+    public Map<String, String> returnAll() {
         return employeeService.printAllList();
     }
 }

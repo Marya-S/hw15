@@ -4,47 +4,43 @@ import exception.EmployeeAlreadyAdded;
 import exception.EmployeeNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private List<Employee> listEmployee = new ArrayList<>();
+    private Map<String, String> listEmployee = new HashMap<>();
 
-    public Employee addEmployee(String name, String surname) {
-        Employee employee = new Employee(name, surname);
-        for (Employee element : listEmployee
-        ) {
-            if (element.getName().equals(name) && element.getSurname().equals(surname)) {
-                throw new EmployeeAlreadyAdded("Сотрудник уже добавлен в список");
-            }
+    public String addEmployee(String name, String surname) {
+        String fio = name + " " + surname;
+        if (listEmployee.containsKey(fio)) {
+            throw new EmployeeAlreadyAdded("Сотрудник уже добавлен в список");
+        } else {
+            listEmployee.put(fio, null);
         }
-        listEmployee.add(employee);
-        return employee;
+        return fio;
     }
 
-    public Employee deleteEmployee(String name, String surname) {
-        for (Employee employee : listEmployee
-        ) {
-            if (employee.getName().equals(name) && employee.getSurname().equals(surname)) {
-                listEmployee.remove(employee);
-                return employee;
-            }
+    public String deleteEmployee(String name, String surname) {
+        String fio = name + " " + surname;
+        if (listEmployee.containsKey(fio)) {
+            listEmployee.remove(fio);
+        } else {
+            throw new EmployeeNotFoundException("Сотрудник не найден");
         }
-        throw new EmployeeNotFoundException("Сотрудник не найден");
+        return fio;
     }
 
-    public Employee findEmployee(String name, String surname) {
-        for (Employee employee : listEmployee
-        ) {
-            if (employee.getName().equals(name) && employee.getSurname().equals(surname)) {
-                return employee;
-            }
+    public String findEmployee(String name, String surname) {
+        String fio = name + " " + surname;
+        if (listEmployee.containsKey(fio)) {
+            return fio;
+        } else {
+            throw new EmployeeNotFoundException("Сотрудник не найден");
         }
-        throw new EmployeeNotFoundException("Сотрудник не найден");
     }
 
-    public List<Employee> printAllList() {
+    public Map<String, String> printAllList() {
         return listEmployee;
     }
 }
