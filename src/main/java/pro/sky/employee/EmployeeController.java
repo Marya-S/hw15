@@ -1,9 +1,8 @@
 package pro.sky.employee;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employee")
@@ -24,7 +23,7 @@ public class EmployeeController {
         return null;
     }
 
-    @GetMapping(path = "/remove")
+   @GetMapping(path = "/remove")
     public Employee remove(@RequestParam(value = "firstName", required = false) String name, @RequestParam(value = "lastName", required = false) String surname) {
         if (!(name == null) && (!(surname == null))) {
             return employeeService.deleteEmployee(name, surname);
@@ -45,7 +44,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/getAll")
-    public List<Employee> returnAll() {
+    public Map<String, Employee> returnAll() {
         return employeeService.printAllList();
     }
 }

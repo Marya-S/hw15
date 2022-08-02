@@ -1,7 +1,7 @@
 package pro.sky.employee;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
     List<Employee>listEmployee = null;
@@ -9,5 +9,5 @@ public interface EmployeeService {
     public Employee deleteEmployee(String name, String surname);
     public Employee findEmployee(String name, String surname);
 
-    public List<Employee>printAllList();
+    public Map<String, Employee>  printAllList();
 }
