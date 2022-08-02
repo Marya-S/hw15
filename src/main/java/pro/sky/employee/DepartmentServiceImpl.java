@@ -9,11 +9,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class EmployeeBookServiceImpl implements EmployeeBookService{
+public class DepartmentServiceImpl implements DepartmentService {
     private final EmployeeService employeeService;
-    private Map<String, Employee> employeeList;
 
-    public EmployeeBookServiceImpl(EmployeeService employeeService) {
+    public DepartmentServiceImpl(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
@@ -41,7 +40,8 @@ public class EmployeeBookServiceImpl implements EmployeeBookService{
     }
 
     @Override
-    public Map<String,Employee> getAllEmployeeWithDepartment() {
-        return employeeService.getAllEmployeeList();
+    public Map<Integer, List<Employee>> getAllEmployeeWithDepartment() {
+        return employeeService.getAllEmployeeList().values().stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
     }
 }
