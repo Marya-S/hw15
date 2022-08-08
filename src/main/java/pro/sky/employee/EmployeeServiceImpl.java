@@ -11,8 +11,8 @@ import java.util.Map;
 public class EmployeeServiceImpl implements EmployeeService {
     private Map<String, Employee> listEmployee = new HashMap<>();
 
-    public Employee addEmployee(String name, String surname) {
-        Employee employee = new Employee(name,surname);
+    public Employee addEmployee(String name, String surname,double salary, int department) {
+        Employee employee = new Employee(name,surname,salary,department);
         if (listEmployee.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAdded("Сотрудник уже добавлен в список");
         } else {
@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
-    public Map<String, Employee> printAllList() {
+    public Map<String, Employee> getAllEmployeeList() {
         return listEmployee;
     }
 }

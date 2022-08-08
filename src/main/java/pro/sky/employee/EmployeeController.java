@@ -14,9 +14,10 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public Employee add(@RequestParam(value = "firstName", required = false) String name, @RequestParam(value = "lastName", required = false) String surname) {
+    public Employee add(@RequestParam(value = "firstName", required = false) String name, @RequestParam(value = "lastName", required = false) String surname,
+                        @RequestParam(value = "salary") double salary,@RequestParam(value = "department") int department) {
         if (!(name == null) && (!(surname == null))) {
-            return employeeService.addEmployee(name, surname);
+            return employeeService.addEmployee(name, surname, salary, department);
         } else {
             System.out.println("Не все параметры заданы");
         }
@@ -45,6 +46,6 @@ public class EmployeeController {
 
     @GetMapping(path = "/getAll")
     public Map<String, Employee> returnAll() {
-        return employeeService.printAllList();
+        return employeeService.getAllEmployeeList();
     }
 }
